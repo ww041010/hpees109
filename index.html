@@ -167,7 +167,7 @@
             statusMessage.innerText = `🎵 正在播放：${formattedNumber}號 ${studentName}`;
             
             // 使用第三方轉址服務，讓網頁能直接讀取雲端硬碟的 mp3 檔案
-            audioPlayer.src = `https://v2-api.drv.tw/v1/views/raw/${1WyIlxcLJCxBFpGbkQ7y13xhHrpFHTCYU}/${formattedNumber}.mp3`;
+            audioPlayer.src = `https://v2-api.drv.tw/v1/views/raw/${"1WyIlxcLJCxBFpGbkQ7y13xhHrpFHTCYU"}/${formattedNumber}.mp3`;
             
             audioPlayer.play().catch(error => {
                 statusMessage.innerText = `❌ 播放失敗，請檢查雲端硬碟內是否有 ${formattedNumber}.mp3 且已公開共用`;
