@@ -114,9 +114,6 @@
 </div>
 
 <script>
-    // ⚠️ 請把引號內的文字換成你 Google 雲端硬碟資料夾的 ID 亂碼
-    const DRIVE_FOLDER_ID = "1WyIlxcLJCxBFpGbkQ7y13xhHrpFHTCYU"; 
-
     const studentList = {
         "01": "馮樂恩", "02": "張珈嘉", "03": "黃宇唯", "06": "杜京霏", "07": "劉玥頤",
         "08": "高信信", "09": "賴于媗", "10": "王元謙", "11": "王宥勻", "12": "劉祐潔",
@@ -136,7 +133,6 @@
     const statusMessage = document.getElementById("statusMessage");
     const audioPlayer = document.getElementById("audioPlayer");
 
-    // 按數字鍵的功能
     function press(num) {
         if (inputNumber.length < 2) { 
             inputNumber += num;
@@ -144,15 +140,15 @@
         }
     }
 
-    // 重設功能
+    // 清除與停止播放
     function clearClear() {
         inputNumber = "";
         display.innerText = "";
         statusMessage.innerText = "請輸入座號 (01-57) 後按撥出";
         audioPlayer.pause();
+        audioPlayer.src = ""; 
     }
 
-    // 撥出功能
     function makeCall() {
         if (inputNumber === "") {
             statusMessage.innerText = "請先輸入號碼！";
@@ -169,11 +165,12 @@
         if (studentName) {
             statusMessage.innerText = `🎵 正在播放：${formattedNumber}號 ${studentName}`;
             
-            // 使用轉換網址，讓網頁能直接讀取雲端硬碟的 mp3 檔案
-            audioPlayer.src = `https://v2-api.drv.tw/v1/views/raw/${DRIVE_FOLDER_ID}/${formattedNumber}.mp3`;
+            // 💡 直接讀取網站根目錄下的 audio 資料夾
+            audioPlayer.src = `audio/${formattedNumber}.mp3`;
             
             audioPlayer.play().catch(error => {
-                statusMessage.innerText = `❌ 播放失敗，請檢查雲端硬碟內是否有 ${formattedNumber}.mp3 且已公開共用`;
+                console.log(error);
+                statusMessage.innerText = `❌ 播放失敗，請確認 GitHub 上的 audio 資料夾內是否有 ${formattedNumber}.mp3 檔案`;
             });
         } else {
             statusMessage.innerText = `⚠️ 號碼 ${formattedNumber} 是空號喔！`;
